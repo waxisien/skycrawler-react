@@ -35,20 +35,36 @@
   bottom: 0px;
 }
 
-.map-view-layout {
-  display: flex;
+@media only screen and (min-width: 1024px) {
+  .map-view-layout {
+    display: flex;
+  }
+
+  .map-view-column {
+    flex: 70%;
+  }
+
+  .map-view-list-column {
+    flex: 30%;
+  }
 }
 
-.map-view-column {
-  flex: 70%;
+@media only screen and (max-width: 1023px) {
+  .map-view-column {
+    height: 350px;
+  }
+
+  .map-view-list-column {
+    height: calc(100% - 350px);
+  }
 }
+
 
 .map-view-column .map {
   height: 100%;
 }
 
 .map-view-list-column {
-  flex: 30%;
   border-left: 2px solid #d0d0d0;
 }
 
