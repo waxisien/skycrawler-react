@@ -41,11 +41,11 @@
   }
 
   .map-view-column {
-    flex: 70%;
+    flex: 1;
   }
 
   .map-view-list-column {
-    flex: 30%;
+    flex: 0 0 30em;
   }
 }
 
@@ -58,7 +58,6 @@
     height: calc(100% - 350px);
   }
 }
-
 
 .map-view-column .map {
   height: 100%;
