@@ -51,11 +51,11 @@
 
 @media only screen and (max-width: 1023px) {
   .map-view-column {
-    height: 350px;
+    height: 40%;
   }
 
   .map-view-list-column {
-    height: calc(100% - 350px);
+    height: 60%;
   }
 }
 
