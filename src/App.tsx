@@ -28,7 +28,7 @@ const App = (): JSX.Element => {
     <ApolloProvider client={client}>
       <Router>
         <header className="header">
-          <IconButton aria-label="menu" color="default" href="/">
+          <IconButton aria-label="menu" color="default" to="/" component={Link}>
             <PlaceOutlinedIcon style={{ fill: 'white' }}/>
           </IconButton>
           <Link to="/">Skycrawler</Link>
