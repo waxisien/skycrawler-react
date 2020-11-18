@@ -32,8 +32,13 @@ const App = (): JSX.Element => {
             <PlaceOutlinedIcon style={{ fill: 'white' }}/>
           </IconButton>
           <Link to="/">Skycrawler</Link>
-          <Button variant="outlined" href="/list" className="menu-list-button">
-            View list
+          <Button
+            component={Link}
+            variant="outlined"
+            to="/list"
+            className="menu-list-button"
+          >
+            Full list
           </Button>
           <IconButton className='info-dialog-icon' aria-label="menu" color="default" onClick={toggleDialogInfo}>
             <InfoOutlined style={{ fill: 'white' }} />
