@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bounds } from 'google-map-react';
 
-import MapView from "./MapView"
+import MapView from "./MapView";
 import MapViewList from './MapViewList';
 
 const MapViewLayout = (): JSX.Element => {

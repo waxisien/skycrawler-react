@@ -65,6 +65,7 @@
 
 .map-view-list-column {
   border-left: 2px solid #d0d0d0;
+  position: relative;
 }
 
 /* Used to prevent a loop when using flexbox and react-virtualized-auto-sizer */
@@ -74,4 +75,13 @@
 
 .list tr:hover {
   cursor: pointer;
+}
+
+.progress {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }

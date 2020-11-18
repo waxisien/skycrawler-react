@@ -5,6 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { Bounds } from 'google-map-react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { BUILDINGS } from './lib/queries';
 import { Building, City } from './types';
@@ -16,7 +17,14 @@ const MapViewList = (props: MapViewListProps): JSX.Element => {
   const { mapBounds } = props;
   const { loading, error, data } = useQuery(BUILDINGS);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="progress">
+        <CircularProgress />
+      </div>
+    );
+  }
+
   if (error) return <p>Error :(</p>;
 
   const isInBoundaries = (building: Building) => {
