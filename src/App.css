@@ -67,16 +67,13 @@
   }
 }
 
-.map-view-column {
+.map-view-column,
+.map-view-list-column {
   position: relative;
 }
 
 .map-view-column .map {
   height: 100%;
-}
-
-.map-view-list-column {
-  position: relative;
 }
 
 /* Used to prevent a loop when using flexbox and react-virtualized-auto-sizer */
@@ -86,13 +83,4 @@
 
 .list tr:hover {
   cursor: pointer;
-}
-
-.progress {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }

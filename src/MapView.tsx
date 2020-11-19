@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import GoogleMapReact, { Bounds, ChangeEventValue, Coords } from 'google-map-react';
 import supercluster from 'points-cluster';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { BUILDINGS } from './lib/queries';
 import { Building, MapBuilding } from './types';
 import MapMarker from './MapMarker';
 import MapClusterMarker from './MapClusterMarker';
+import Loader from './Loader';
 
 const adaptBuildingList = (buildings: Building[]) =>
   buildings.map((building: Building): MapBuilding => ({
@@ -85,14 +85,7 @@ const MapView = (props: MapViewProps): JSX.Element => {
     [createClusters, onBoundsChange, setClusters],
   );
 
-  if (loading) {
-    return (
-      <div className="progress">
-        <CircularProgress />
-      </div>
-    );
-  }
-
+  if (loading) return <Loader />;
   if (error) return <p>Error :(</p>;
 
   return (

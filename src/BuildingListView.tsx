@@ -9,10 +9,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { BUILDINGS } from './lib/queries';
 import { Building } from './types';
+import Loader from './Loader';
 
 const useStyles = makeStyles({
   table: {
@@ -59,14 +59,7 @@ const BuildingListView = (): JSX.Element => {
 
   const [order, setOrder] = React.useState<Order>('desc');
 
-  if (loading) {
-    return (
-      <div className="progress">
-        <CircularProgress />
-      </div>
-    );
-  }
-
+  if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
 
   const handleRequestSort = (): void => {
@@ -78,6 +71,7 @@ const BuildingListView = (): JSX.Element => {
     window.open(link, '_blank')
   };
 
+  // TODO: virtualize list
   return (
     <TableContainer component={Paper} className="list" >
       <Table className={classes.table} stickyHeader size="small">
