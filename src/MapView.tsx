@@ -5,12 +5,12 @@ import supercluster from 'points-cluster';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { BUILDINGS } from './lib/queries';
-import { Building } from './types';
+import { Building, MapBuilding } from './types';
 import MapMarker from './MapMarker';
 import MapClusterMarker from './MapClusterMarker';
 
 const adaptBuildingList = (buildings: Building[]) =>
-  buildings.map((building: Building) => ({
+  buildings.map((building: Building): MapBuilding => ({
     id: building.id,
     lat: building.city.latitude,
     lng: building.city.longitude,
@@ -19,6 +19,21 @@ const adaptBuildingList = (buildings: Building[]) =>
 
 interface MapViewProps {
   onBoundsChange: (bounds: Bounds) => void;
+}
+
+interface RawCluster {
+  wy: number;
+  wx: number;
+  numPoints: number;
+  points: MapBuilding[];
+}
+
+interface Cluster {
+  lat: number;
+  lng: number;
+  key: string;
+  numPoints: number;
+  points: MapBuilding[];
 }
 
 const MapView = (props: MapViewProps): JSX.Element => {
@@ -51,7 +66,7 @@ const MapView = (props: MapViewProps): JSX.Element => {
       if (!bounds) return [];
 
       return getClusters(center, zoom, bounds).map(
-        (cluster: any) => ({
+        (cluster: RawCluster) => ({
           lat: cluster.wy,
           lng: cluster.wx,
           numPoints: cluster.numPoints,
@@ -89,7 +104,7 @@ const MapView = (props: MapViewProps): JSX.Element => {
         onChange={onMapChange}
         options={{ minZoom, maxZoom }}
       >
-        {clusters.map((item: any) => {
+        {clusters.map((item: Cluster) => {
           if (item.numPoints === 1) {
             return (
               <MapMarker

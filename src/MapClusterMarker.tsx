@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { Building } from './types';
+import { MapBuilding } from './types';
 
 import './MapClusterMarker.css';
 
 interface MapClusterMarkerProps {
   lng: number;
   lat: number;
-  points: Building[];
+  points: MapBuilding[];
 }
 const MapClusterMarker = (props: MapClusterMarkerProps): JSX.Element => {
   return (

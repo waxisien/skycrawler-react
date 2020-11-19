@@ -19,3 +19,10 @@ export interface Stats {
   totalBuildings: number;
   totalCities: number;
 }
+
+export interface MapBuilding {
+  id: string;
+  lat: number;
+  lng: number;
+  text: string;
+}
