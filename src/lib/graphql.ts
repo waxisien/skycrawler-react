@@ -13,3 +13,4 @@ export const client = new ApolloClient({
 
 export const mapBounds = makeVar<Bounds | undefined>(undefined);
 export const minHeightFilter = makeVar<number>(0);
+export const statusFilter = makeVar<boolean>(false);

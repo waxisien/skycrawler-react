@@ -9,8 +9,8 @@ import { Building, MapBuilding } from './types';
 import MapMarker from './MapMarker';
 import MapClusterMarker from './MapClusterMarker';
 import Loader from './Loader';
-import { mapBounds, minHeightFilter } from './lib/graphql';
-import { filterByHeight } from './lib/utils';
+import { mapBounds, minHeightFilter, statusFilter } from './lib/graphql';
+import { filterByHeight, filterByStatus } from './lib/utils';
 
 const adaptBuildingList = (buildings: Building[]) =>
   buildings.map((building: Building): MapBuilding => ({
@@ -42,6 +42,7 @@ const MapView = (): JSX.Element => {
   const maxZoom = 7;
 
   const minHeight = useReactiveVar(minHeightFilter);
+  const onlyUnderConstruction = useReactiveVar(statusFilter);
 
   const bounds = useReactiveVar(mapBounds);
   const [center, setCenter] = React.useState(defaultCenter);
@@ -50,7 +51,7 @@ const MapView = (): JSX.Element => {
   const { loading, error, data } = useQuery(BUILDINGS);
 
   const buildings = adaptBuildingList(
-    data ? data.buildings.filter(filterByHeight(minHeight)) : []);
+    data ? data.buildings.filter(filterByHeight(minHeight)).filter(filterByStatus(onlyUnderConstruction)) : []);
 
   const getClusters = React.useCallback(
     (): RawCluster[] => {

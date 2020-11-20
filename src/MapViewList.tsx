@@ -9,20 +9,18 @@ import { useReactiveVar } from '@apollo/client'
 import { BUILDINGS } from './lib/queries';
 import { Building, City } from './types';
 import Loader from './Loader';
-import { mapBounds as mapBoundsStore, minHeightFilter } from './lib/graphql';
-import HeightFilter from './HeightFilter';
-import { filterByHeight, findMaxHeight } from './lib/utils';
+import { mapBounds as mapBoundsStore, minHeightFilter, statusFilter } from './lib/graphql';
+import { filterByHeight, filterByStatus } from './lib/utils';
 
 const MapViewList = (): JSX.Element => {
   const { loading, error, data } = useQuery(BUILDINGS);
   const minHeight = useReactiveVar(minHeightFilter);
   const mapBounds = useReactiveVar(mapBoundsStore);
+  const onlyUnderConstruction = useReactiveVar(statusFilter);
  
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
   
-  const maxHeight = findMaxHeight(data.buildings);
-
   const filterByBoundaries = (building: Building) => {
     if (!mapBounds) return false;
 
@@ -39,7 +37,7 @@ const MapViewList = (): JSX.Element => {
   const compareByHeight = (a: Building, b: Building) => b.height - a.height;
 
   const filteredBuildings = data.buildings
-    .filter(filterByBoundaries).filter(filterByHeight(minHeight))
+    .filter(filterByBoundaries).filter(filterByHeight(minHeight)).filter(filterByStatus(onlyUnderConstruction))
     .sort(compareByHeight);
 
   const handleClick = (link: string) => (): void => {
@@ -64,7 +62,6 @@ const MapViewList = (): JSX.Element => {
 
   return (
     <div className="list-container">
-      <HeightFilter maxHeight={maxHeight}/>
       <AutoSizer>
         {({ height, width}): JSX.Element => (
           <FixedSizeList
