@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import GoogleMapReact, { Bounds, ChangeEventValue, Coords } from 'google-map-react';
+import GoogleMapReact, { ChangeEventValue, Coords } from 'google-map-react';
 import supercluster from 'points-cluster';
+import { useReactiveVar } from '@apollo/client'
 
 import { BUILDINGS } from './lib/queries';
 import { Building, MapBuilding } from './types';
 import MapMarker from './MapMarker';
 import MapClusterMarker from './MapClusterMarker';
 import Loader from './Loader';
+import { mapBounds, minHeightFilter } from './lib/graphql';
+import { filterByHeight } from './lib/utils';
 
 const adaptBuildingList = (buildings: Building[]) =>
   buildings.map((building: Building): MapBuilding => ({
@@ -16,10 +19,6 @@ const adaptBuildingList = (buildings: Building[]) =>
     lng: building.city.longitude,
     text: building.name,
   }));
-
-interface MapViewProps {
-  onBoundsChange: (bounds: Bounds) => void;
-}
 
 interface RawCluster {
   wy: number;
@@ -36,21 +35,27 @@ interface Cluster {
   points: MapBuilding[];
 }
 
-const MapView = (props: MapViewProps): JSX.Element => {
-  const defaultCenter = {lat: 40, lng: 30};
+const MapView = (): JSX.Element => {
+  const defaultCenter: Coords = {lat: 40, lng: 30};
   const defaultZoom = 2;
   const minZoom = 2;
   const maxZoom = 7;
 
-  const { onBoundsChange } = props;
+  const minHeight = useReactiveVar(minHeightFilter);
+
+  const bounds = useReactiveVar(mapBounds);
+  const [center, setCenter] = React.useState(defaultCenter);
+  const [zoom, setZoom] = React.useState(defaultZoom);
 
   const { loading, error, data } = useQuery(BUILDINGS);
-  const [clusters, setClusters] = useState([]);
 
-  const buildings = adaptBuildingList(data ? data.buildings: []);
+  const buildings = adaptBuildingList(
+    data ? data.buildings.filter(filterByHeight(minHeight)) : []);
 
   const getClusters = React.useCallback(
-    (center: Coords, zoom: number, bounds: Bounds) => {
+    (): RawCluster[] => {
+      if (!bounds) return [];
+
       const mapOptions = {
         minZoom,
         maxZoom,
@@ -58,31 +63,32 @@ const MapView = (props: MapViewProps): JSX.Element => {
       }
       return supercluster(buildings, mapOptions)({ center, zoom, bounds });
     },
-    [buildings],
+    [buildings, center, zoom, bounds],
   );
 
   const createClusters = React.useCallback(
-    (center: Coords, zoom: number, bounds: Bounds) => {
-      if (!bounds) return [];
-
-      return getClusters(center, zoom, bounds).map(
+    (): Cluster[] => (
+      getClusters().map(
         (cluster: RawCluster) => ({
           lat: cluster.wy,
           lng: cluster.wx,
           numPoints: cluster.numPoints,
           key: `${cluster.numPoints}_${cluster.points[0].id}`,
           points: cluster.points,
-        }));
-    },
+        }))
+    ),
     [getClusters],
   );
 
+  const clusters = createClusters();
+
   const onMapChange = React.useCallback(
     (value: ChangeEventValue): void => {
-      setClusters(createClusters(value.center, value.zoom, value.bounds));
-      onBoundsChange(value.bounds);
+      setCenter(value.center);
+      setZoom(value.zoom);
+      mapBounds(value.bounds);
     },
-    [createClusters, onBoundsChange, setClusters],
+    [createClusters],
   );
 
   if (loading) return <Loader />;

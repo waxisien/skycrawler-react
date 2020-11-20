@@ -65,6 +65,10 @@
   .map-view-list-column {
     border-top: 2px solid #d0d0d0;
   }
+
+  .height-filter {
+    display: none;
+  }
 }
 
 .map-view-column,
@@ -83,4 +87,20 @@
 
 .list tr:hover {
   cursor: pointer;
+}
+
+.height-filter {
+  top: 58px;
+  left: 8px;
+  position: fixed;
+  width: 14em;
+  opacity: 0.95;
+}
+
+.height-filter .MuiCardContent-root:last-child {
+  padding-bottom: 4px;
+}
+
+.height-filter .MuiCardContent-root {
+  padding-top: 10px;
 }
