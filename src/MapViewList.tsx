@@ -4,24 +4,20 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { Bounds } from 'google-map-react';
 import { useReactiveVar } from '@apollo/client'
 
 import { BUILDINGS } from './lib/queries';
 import { Building, City } from './types';
 import Loader from './Loader';
-import { minHeightFilter } from './lib/graphql';
+import { mapBounds as mapBoundsStore, minHeightFilter } from './lib/graphql';
 import HeightFilter from './HeightFilter';
 import { filterByHeight, findMaxHeight } from './lib/utils';
 
-interface MapViewListProps {
-  mapBounds: Bounds | undefined;  
-}
-const MapViewList = (props: MapViewListProps): JSX.Element => {
-  const { mapBounds } = props;
+const MapViewList = (): JSX.Element => {
   const { loading, error, data } = useQuery(BUILDINGS);
   const minHeight = useReactiveVar(minHeightFilter);
-
+  const mapBounds = useReactiveVar(mapBoundsStore);
+ 
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
   
