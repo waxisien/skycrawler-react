@@ -84,3 +84,8 @@
 .list tr:hover {
   cursor: pointer;
 }
+
+.height-filter {
+  margin: 1em;
+  width: 12em;
+}

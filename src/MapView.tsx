@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import GoogleMapReact, { Bounds, ChangeEventValue, Coords } from 'google-map-react';
 import supercluster from 'points-cluster';
+import { useReactiveVar } from '@apollo/client'
 
 import { BUILDINGS } from './lib/queries';
 import { Building, MapBuilding } from './types';
 import MapMarker from './MapMarker';
 import MapClusterMarker from './MapClusterMarker';
 import Loader from './Loader';
+import { minHeightFilter } from './lib/graphql';
+import { filterByHeight } from './lib/utils';
 
 const adaptBuildingList = (buildings: Building[]) =>
   buildings.map((building: Building): MapBuilding => ({
@@ -43,11 +46,13 @@ const MapView = (props: MapViewProps): JSX.Element => {
   const maxZoom = 7;
 
   const { onBoundsChange } = props;
+  const minHeight = useReactiveVar(minHeightFilter);
 
   const { loading, error, data } = useQuery(BUILDINGS);
   const [clusters, setClusters] = useState([]);
 
-  const buildings = adaptBuildingList(data ? data.buildings: []);
+  const buildings = adaptBuildingList(
+    data ? data.buildings.filter(filterByHeight(minHeight)) : []);
 
   const getClusters = React.useCallback(
     (center: Coords, zoom: number, bounds: Bounds) => {

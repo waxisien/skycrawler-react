@@ -5,10 +5,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { Bounds } from 'google-map-react';
+import { useReactiveVar } from '@apollo/client'
 
 import { BUILDINGS } from './lib/queries';
 import { Building, City } from './types';
 import Loader from './Loader';
+import { minHeightFilter } from './lib/graphql';
+import HeightFilter from './HeightFilter';
+import { filterByHeight, findMaxHeight } from './lib/utils';
 
 interface MapViewListProps {
   mapBounds: Bounds | undefined;  
@@ -16,11 +20,14 @@ interface MapViewListProps {
 const MapViewList = (props: MapViewListProps): JSX.Element => {
   const { mapBounds } = props;
   const { loading, error, data } = useQuery(BUILDINGS);
+  const minHeight = useReactiveVar(minHeightFilter);
 
   if (loading) return <Loader/>;
   if (error) return <p>Error :(</p>;
+  
+  const maxHeight = findMaxHeight(data.buildings);
 
-  const isInBoundaries = (building: Building) => {
+  const filterByBoundaries = (building: Building) => {
     if (!mapBounds) return false;
 
     const city: City = building.city;
@@ -35,7 +42,9 @@ const MapViewList = (props: MapViewListProps): JSX.Element => {
 
   const compareByHeight = (a: Building, b: Building) => b.height - a.height;
 
-  const buildings = data.buildings.filter(isInBoundaries).sort(compareByHeight);
+  const filteredBuildings = data.buildings
+    .filter(filterByBoundaries).filter(filterByHeight(minHeight))
+    .sort(compareByHeight);
 
   const handleClick = (link: string) => (): void => {
     window.open(link, '_blank')
@@ -45,7 +54,7 @@ const MapViewList = (props: MapViewListProps): JSX.Element => {
     // eslint-disable-next-line
     const { index, style } = props;
 
-    const building: Building = buildings[index];
+    const building: Building = filteredBuildings[index];
   
     const primaryLabel = `${building.name} - ${building.city.name}`;
     const secondaryLabel = building.height ? `${building.height}m`: 'N/A';
@@ -59,13 +68,14 @@ const MapViewList = (props: MapViewListProps): JSX.Element => {
 
   return (
     <div className="list-container">
+      <HeightFilter maxHeight={maxHeight}/>
       <AutoSizer>
         {({ height, width}): JSX.Element => (
           <FixedSizeList
             height={height}
             width={width}
             itemSize={65}
-            itemCount={buildings.length}
+            itemCount={filteredBuildings.length}
           >
             {renderRow}
           </FixedSizeList>
