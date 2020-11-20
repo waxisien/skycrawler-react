@@ -3,6 +3,7 @@ import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
 
 import { minHeightFilter } from './lib/graphql';
+import { Card, CardContent } from '@material-ui/core';
 
 interface HeightFilterProps {
   maxHeight: number;
@@ -15,18 +16,24 @@ const HeightFilter = (props: HeightFilterProps): JSX.Element => {
 
   return (
     <div className="height-filter">
-      <Typography id="height-filter" gutterBottom>
-        Filter by height
-      </Typography>
-      <Slider
-        min={0}
-        max={props.maxHeight}
-        defaultValue={minHeightFilter()}
-        onChange={handleChange}
-        valueLabelDisplay="auto"
-        aria-labelledby="height-filter"
-        track="inverted"
-      />
+      <Card>
+        <CardContent>
+          <Typography id="height-filter" gutterBottom>
+            Height
+          </Typography>
+          <Slider
+            min={0}
+            max={props.maxHeight}
+            defaultValue={minHeightFilter()}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="height-filter"
+            track="inverted"
+            marks={true}
+            step={100}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 };
