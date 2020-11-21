@@ -5,12 +5,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import { useReactiveVar } from '@apollo/client'
+import { Chip } from '@material-ui/core';
+import BuildIcon from '@material-ui/icons/Build';
 
 import { BUILDINGS } from './lib/queries';
 import { Building, City } from './types';
 import Loader from './Loader';
 import { mapBounds as mapBoundsStore, minHeightFilter, statusFilter } from './lib/graphql';
-import { filterByHeight, filterByStatus } from './lib/utils';
+import { filterByHeight, filterByStatus, underConstructionStatus } from './lib/utils';
 
 const MapViewList = (): JSX.Element => {
   const { loading, error, data } = useQuery(BUILDINGS);
@@ -55,7 +57,8 @@ const MapViewList = (): JSX.Element => {
 
     return (
       <ListItem button style={style} key={index} onClick={handleClick(building.link)} divider>
-        <ListItemText primary={primaryLabel} secondary={secondaryLabel}/>
+        <ListItemText primary={primaryLabel} secondary={secondaryLabel} />
+        {building.status === underConstructionStatus && <Chip label="Under construction" icon={<BuildIcon />} />}
       </ListItem>
     );
   };

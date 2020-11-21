@@ -89,7 +89,7 @@ const MapView = (): JSX.Element => {
       setZoom(value.zoom);
       mapBounds(value.bounds);
     },
-    [createClusters],
+    [],
   );
 
   if (loading) return <Loader />;
