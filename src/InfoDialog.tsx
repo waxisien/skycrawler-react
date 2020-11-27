@@ -27,10 +27,11 @@ const InfoDialog = (props: InfoDialogProps): JSX.Element => {
   return (
     <Dialog onClose={onClose} open={open}>
       <DialogTitle>Info</DialogTitle>
-      <div className='info-dialog-stats'>
+      <p className='info-dialog-stats'>
+        Data from <a href="https://www.skyscrapercity.com/" target="_blank" rel="noopener noreferrer">SkyscraperCity</a>.<br/><br/>
         <b>{ stats.totalBuildings }</b> buildings across <b>{ stats.totalCities }</b> cities.<br/><br/>
         Last synchronization: <b>{syncDate.toLocaleDateString(undefined, options)}</b>.
-      </div>
+      </p>
     </Dialog>
   );};
 
