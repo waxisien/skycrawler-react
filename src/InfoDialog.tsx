@@ -33,6 +33,7 @@ const InfoDialog = (props: InfoDialogProps): JSX.Element => {
         Last synchronization: <b>{syncDate.toLocaleDateString(undefined, options)}</b>.
       </p>
     </Dialog>
-  );};
+  );
+};
 
 export default InfoDialog;
