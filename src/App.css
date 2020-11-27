@@ -93,14 +93,19 @@
   top: 58px;
   left: 8px;
   position: fixed;
-  width: 14em;
+  width: 13em;
   opacity: 0.95;
 }
 
 .height-filter .MuiCardContent-root:last-child {
-  padding-bottom: 4px;
+  padding-bottom: 10px;
 }
 
 .height-filter .MuiCardContent-root {
   padding-top: 10px;
+}
+
+.status-filter.MuiFormControlLabel-root {
+  margin-top: 5px;
+  margin-left: 0;
 }

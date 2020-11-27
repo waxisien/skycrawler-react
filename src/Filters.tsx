@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
-import { Card, CardContent, Switch } from '@material-ui/core';
+import { Card, CardContent, FormControlLabel, Switch } from '@material-ui/core';
 import { useQuery } from '@apollo/react-hooks';
 
 import { minHeightFilter, statusFilter } from './lib/graphql';
@@ -39,10 +39,12 @@ const Filters = (): JSX.Element | null => {
             marks={true}
             step={100}
           />
-          <Typography id="height-filter" gutterBottom>
-            Under construction
-          </Typography>
-          <Switch color="primary" size="small" onChange={handleStatusChange}/>
+          <FormControlLabel
+            className="status-filter"
+            control={<Switch color="primary" size="small" onChange={handleStatusChange}/>}
+            label="Under construction"
+            labelPlacement="start"
+          />
         </CardContent>
       </Card>
     </div>
