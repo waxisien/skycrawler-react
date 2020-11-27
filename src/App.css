@@ -1,24 +1,29 @@
 .header {
   height: 3em;
-  color: white;
   background-color: #1976d2;
   top: 0px;
   left: 0px;
   right: 0px;
-  font-weight: bold;
-  letter-spacing: 2px;
 }
 
 .header a {
   color: white;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
 }
 
-.header a.MuiButton-outlined {
-  border-color: white;
+.header a:hover {
+  color: hsla(0, 0%, 100%, 0.7);
 }
 
-.header .menu-list-button {
+.header a.home-menu {
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.header .menu-list-link {
   margin-left: 4em;
 }
 

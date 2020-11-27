@@ -3,7 +3,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { IconButton } from '@material-ui/core';
 import PlaceOutlinedIcon from '@material-ui/icons/PlaceOutlined';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
-import Button from '@material-ui/core/Button';
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,15 +30,8 @@ const App = (): JSX.Element => {
           <IconButton aria-label="menu" color="default" to="/" component={Link}>
             <PlaceOutlinedIcon style={{ fill: 'white' }}/>
           </IconButton>
-          <Link to="/">Skycrawler</Link>
-          <Button
-            component={Link}
-            variant="outlined"
-            to="/list"
-            className="menu-list-button"
-          >
-            Full list
-          </Button>
+          <Link to="/" className="home-menu">Skycrawler</Link>
+          <Link to="/list" className="menu-list-link">Full list</Link>
           <IconButton className='info-dialog-icon' aria-label="menu" color="default" onClick={toggleDialogInfo}>
             <InfoOutlined style={{ fill: 'white' }} />
           </IconButton>
