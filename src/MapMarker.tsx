@@ -9,7 +9,7 @@ interface MapMarkerProps {
 }
 const MapMarker = (props: MapMarkerProps): JSX.Element => (
   <div className="marker"
-    style={{ backgroundColor: 'blue', cursor: 'pointer'}}
+    style={{ backgroundColor: '#3f51b5', cursor: 'pointer'}}
     title={props.text}
   />
 );

@@ -1,40 +1,7 @@
-.header {
-  height: 3em;
-  background-color: #1976d2;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-}
-
-.header a {
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.header a:hover {
-  color: hsla(0, 0%, 100%, 0.7);
-}
-
-.header a.home-menu {
-  letter-spacing: 2px;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.header .menu-list-link {
-  margin-left: 4em;
-}
-
-.header .info-dialog-icon {
-  float: right;
-}
-
 .map-view-layout,
 .list {
   position: absolute;
-  top: 3em;
+  top: 48px;
   left: 0px;
   right: 0px;
   bottom: 0px;
