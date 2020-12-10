@@ -12,7 +12,7 @@ interface MapClusterMarkerProps {
 const MapClusterMarker = (props: MapClusterMarkerProps): JSX.Element => {
   return (
     <div className="cluster-marker"
-      style={{ backgroundColor: 'purple', cursor: 'pointer'}}
+      style={{ backgroundColor: '#B53F51', cursor: 'pointer'}}
     >
       <span>{props.points.length}</span>
     </div>
