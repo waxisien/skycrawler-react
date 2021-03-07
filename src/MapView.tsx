@@ -5,13 +5,13 @@ import { useReactiveVar } from "@apollo/client";
 import { LatLng } from "leaflet";
 import { useMapEvents } from "react-leaflet";
 
-import { BUILDINGS } from "./lib/queries";
-import { Building, MapBuilding } from "./types";
-import MapMarker from "./MapMarker";
-import MapClusterMarker from "./MapClusterMarker";
-import Loader from "./Loader";
-import { mapBounds, minHeightFilter, statusFilter } from "./lib/graphql";
-import { filterByHeight, filterByStatus } from "./lib/utils";
+import { BUILDINGS } from "src/lib/queries";
+import { Building, MapBuilding } from "src/types";
+import MapMarker from "src/MapMarker";
+import MapClusterMarker from "src/MapClusterMarker";
+import Loader from "src/Loader";
+import { mapBounds, minHeightFilter, statusFilter } from "src/lib/graphql";
+import { filterByHeight, filterByStatus } from "src/lib/utils";
 
 const adaptBuildingList = (buildings: Building[]) =>
   buildings.map(

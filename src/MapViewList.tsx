@@ -8,9 +8,9 @@ import { useReactiveVar } from "@apollo/client";
 import { Chip } from "@material-ui/core";
 import BuildIcon from "@material-ui/icons/Build";
 
-import { BUILDINGS } from "./lib/queries";
-import { Building, City } from "./types";
-import Loader from "./Loader";
+import { BUILDINGS } from "src/lib/queries";
+import { Building, City } from "src/types";
+import Loader from "src/Loader";
 import {
   mapBounds as mapBoundsStore,
   minHeightFilter,

@@ -1,17 +1,13 @@
-import React from 'react';
-import { ApolloProvider } from '@apollo/react-hooks';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import React from "react";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { client } from './lib/graphql';
-import BuildingListView from './BuildingListView';
-import MapViewLayout from './MapViewLayout';
-import AppHeader from './AppHeader';
+import { client } from "src/lib/graphql";
+import BuildingListView from "src/BuildingListView";
+import MapViewLayout from "src/MapViewLayout";
+import AppHeader from "src/AppHeader";
 
-import './App.css';
+import "./App.css";
 
 const App = (): JSX.Element => (
   <ApolloProvider client={client}>

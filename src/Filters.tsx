@@ -1,25 +1,29 @@
-import React from 'react';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import { Card, CardContent, FormControlLabel, Switch } from '@material-ui/core';
-import { useQuery } from '@apollo/react-hooks';
+import React from "react";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
+import { Card, CardContent, FormControlLabel, Switch } from "@material-ui/core";
+import { useQuery } from "@apollo/react-hooks";
 
-import { minHeightFilter, statusFilter } from './lib/graphql';
-import { BUILDINGS } from './lib/queries';
-import { findMaxHeight } from './lib/utils';
+import { minHeightFilter, statusFilter } from "src/lib/graphql";
+import { BUILDINGS } from "src/lib/queries";
+import { findMaxHeight } from "src/lib/utils";
 
 const Filters = (): JSX.Element | null => {
   const { loading, error, data } = useQuery(BUILDINGS);
- 
+
   if (loading || error) return null;
-  
+
   const maxHeight = findMaxHeight(data.buildings);
 
   const handleHeightChange = (
-    event: React.ChangeEvent<unknown>, newValue: number | number[]) => minHeightFilter(newValue as number);
+    event: React.ChangeEvent<unknown>,
+    newValue: number | number[]
+  ) => minHeightFilter(newValue as number);
 
   const handleStatusChange = (
-    event: React.ChangeEvent<unknown>, checked: boolean) => statusFilter(checked);
+    event: React.ChangeEvent<unknown>,
+    checked: boolean
+  ) => statusFilter(checked);
 
   return (
     <div className="height-filter">
@@ -41,7 +45,13 @@ const Filters = (): JSX.Element | null => {
           />
           <FormControlLabel
             className="status-filter"
-            control={<Switch color="primary" size="small" onChange={handleStatusChange}/>}
+            control={
+              <Switch
+                color="primary"
+                size="small"
+                onChange={handleStatusChange}
+              />
+            }
             label="Under construction"
             labelPlacement="start"
           />

@@ -1,18 +1,18 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Paper from '@material-ui/core/Paper';
+import React from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import Paper from "@material-ui/core/Paper";
 
-import { BUILDINGS } from './lib/queries';
-import { Building } from './types';
-import Loader from './Loader';
+import { BUILDINGS } from "src/lib/queries";
+import { Building } from "src/types";
+import Loader from "src/Loader";
 
 const useStyles = makeStyles({
   table: {
@@ -20,9 +20,9 @@ const useStyles = makeStyles({
   },
 });
 
-type Order = 'asc' | 'desc';
+type Order = "asc" | "desc";
 
-type CompareResult = -1 | 0 | 1; 
+type CompareResult = -1 | 0 | 1;
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T): CompareResult {
   if (b[orderBy] < a[orderBy]) {
@@ -34,13 +34,17 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T): CompareResult {
   return 0;
 }
 
-function getComparator<Key extends keyof any>(  // eslint-disable-line
+function getComparator<Key extends keyof any>( // eslint-disable-line
   order: Order,
-  orderBy: Key,
-): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
-  return order === 'desc'
+  orderBy: Key
+): (
+  a: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
+) => number {
+  return order === "desc"
     ? (a, b): CompareResult => descendingComparator(a, b, orderBy)
-    : (a, b): CompareResult => -descendingComparator(a, b, orderBy) as CompareResult;
+    : (a, b): CompareResult =>
+        -descendingComparator(a, b, orderBy) as CompareResult;
 }
 
 function stableSort<T>(array: T[], comparator: (a: T, b: T) => number): T[] {
@@ -50,30 +54,30 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number): T[] {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  return stabilizedThis.map(el => el[0]);
+  return stabilizedThis.map((el) => el[0]);
 }
 
 const BuildingListView = (): JSX.Element => {
   const classes = useStyles();
   const { loading, error, data } = useQuery(BUILDINGS);
 
-  const [order, setOrder] = React.useState<Order>('desc');
+  const [order, setOrder] = React.useState<Order>("desc");
 
-  if (loading) return <Loader/>;
+  if (loading) return <Loader />;
   if (error) return <p>Error :(</p>;
 
   const handleRequestSort = (): void => {
-    const isAsc = order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
   };
 
   const handleClick = (link: string) => (): void => {
-    window.open(link, '_blank')
+    window.open(link, "_blank");
   };
 
   // TODO: virtualize list
   return (
-    <TableContainer component={Paper} className="list" >
+    <TableContainer component={Paper} className="list">
       <Table className={classes.table} stickyHeader size="small">
         <TableHead>
           <TableRow>
@@ -93,8 +97,15 @@ const BuildingListView = (): JSX.Element => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {stableSort<Building>(data.buildings, getComparator(order, 'height')).map((building) => (
-            <TableRow key={building.id} hover={true} onClick={handleClick(building.link)}>
+          {stableSort<Building>(
+            data.buildings,
+            getComparator(order, "height")
+          ).map((building) => (
+            <TableRow
+              key={building.id}
+              hover={true}
+              onClick={handleClick(building.link)}
+            >
               <TableCell component="th" scope="row">
                 {building.name}
               </TableCell>

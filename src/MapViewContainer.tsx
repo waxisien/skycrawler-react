@@ -2,7 +2,7 @@ import React from "react";
 import { LatLngLiteral } from "leaflet";
 import { MapContainer, TileLayer } from "react-leaflet";
 
-import MapView from "./MapView";
+import MapView from "src/MapView";
 
 const MapViewContainer = (): JSX.Element => {
   const defaultCenter: LatLngLiteral = { lat: 40, lng: 30 };

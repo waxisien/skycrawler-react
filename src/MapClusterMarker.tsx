@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Marker } from 'react-leaflet';
+import * as React from "react";
+import { Marker } from "react-leaflet";
 
-import { MapBuilding } from './types';
+import { MapBuilding } from "src/types";
 
-import './MapClusterMarker.css';
+import "./MapClusterMarker.css";
 
 interface MapClusterMarkerProps {
   lng: number;
@@ -17,7 +17,7 @@ const MapClusterMarker = (props: MapClusterMarkerProps): JSX.Element => {
     >
       <span>{props.points.length}</span>
     </div>*/
-    <Marker position={{lat: props.lat, lng: props.lng}}></Marker>
+    <Marker position={{ lat: props.lat, lng: props.lng }}></Marker>
   );
 };
 
