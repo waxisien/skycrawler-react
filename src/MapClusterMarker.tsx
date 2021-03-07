@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Marker } from 'react-leaflet';
 
 import { MapBuilding } from './types';
 
@@ -11,11 +12,12 @@ interface MapClusterMarkerProps {
 }
 const MapClusterMarker = (props: MapClusterMarkerProps): JSX.Element => {
   return (
-    <div className="cluster-marker"
+    /*<div className="cluster-marker"
       style={{ backgroundColor: '#B53F51', cursor: 'pointer'}}
     >
       <span>{props.points.length}</span>
-    </div>
+    </div>*/
+    <Marker position={{lat: props.lat, lng: props.lng}}></Marker>
   );
 };
 

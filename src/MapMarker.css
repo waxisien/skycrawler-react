@@ -8,6 +8,7 @@
   border-radius: 100%;
   user-select: none;
   transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
 .marker:hover {

@@ -12,6 +12,7 @@
   text-align: center;
   line-height: 26px;
   font-weight: bold;
+  z-index: 1000;
 }
 
 .cluster-marker:hover {

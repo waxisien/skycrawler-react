@@ -1,13 +1,13 @@
 import React from 'react';
 import Filters from './Filters';
 
-import MapView from "./MapView";
+import MapViewContainer from "./MapViewContainer";
 import MapViewList from './MapViewList';
 
 const MapViewLayout = (): JSX.Element => (
   <div className="map-view-layout">
     <div className="map-view-column">
-      <MapView />
+      <MapViewContainer />
     </div>
     <div className='map-view-list-column'>
       <MapViewList />

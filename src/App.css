@@ -48,7 +48,8 @@
   position: relative;
 }
 
-.map-view-column .map {
+.map-view-column .map,
+.leaflet-container {
   height: 100%;
 }
 
