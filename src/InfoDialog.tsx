@@ -22,12 +22,6 @@ const InfoDialog = (props: InfoDialogProps): JSX.Element => {
 
   const stats: Stats = data.stats;
   const syncDate = new Date(Date.parse(stats.lastSynchronization));
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
 
   return (
     <Dialog onClose={onClose} open={open}>
@@ -47,8 +41,7 @@ const InfoDialog = (props: InfoDialogProps): JSX.Element => {
         <b>{stats.totalCities}</b> cities.
         <br />
         <br />
-        Last synchronization:{" "}
-        <b>{syncDate.toLocaleDateString(undefined, options)}</b>.
+        Last synchronization: <b>{syncDate.toLocaleDateString()}</b>.
       </p>
     </Dialog>
   );
