@@ -68,6 +68,7 @@
   position: fixed;
   width: 13em;
   opacity: 0.95;
+  z-index: 1000;
 }
 
 .height-filter .MuiCardContent-root:last-child {
