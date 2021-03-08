@@ -1,4 +1,4 @@
-import { Building } from "../types";
+import { Building } from "src/types";
 
 export const filterByHeight = (minHeight: number) => (
   building: Building

@@ -9,6 +9,8 @@
   user-select: none;
   transform: translate(-50%, -50%);
   z-index: 1000;
+  background-color: #3f51b5;
+  cursor: pointer;
 }
 
 .marker:hover {

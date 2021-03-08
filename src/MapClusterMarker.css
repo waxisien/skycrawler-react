@@ -13,6 +13,8 @@
   line-height: 26px;
   font-weight: bold;
   z-index: 1000;
+  background-color: #b53f51;
+  cursor: pointer;
 }
 
 .cluster-marker:hover {
