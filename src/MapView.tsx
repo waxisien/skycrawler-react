@@ -38,10 +38,13 @@ interface Cluster {
   points: MapBuilding[];
 }
 
-const MapView = (): JSX.Element => {
-  const minZoom = 2;
-  const maxZoom = 7;
+interface MapViewProps {
+  minZoom: number;
+  maxZoom: number;
+}
 
+const MapView = (props: MapViewProps): JSX.Element => {
+  const { minZoom, maxZoom } = props;
   const minHeight = useReactiveVar(minHeightFilter);
   const onlyUnderConstruction = useReactiveVar(statusFilter);
 
@@ -79,7 +82,7 @@ const MapView = (): JSX.Element => {
     const mapOptions = {
       minZoom,
       maxZoom,
-      radius: 50,
+      radius: 45,
     };
     const boundsLatLng = {
       nw: { lat: bounds.getNorthWest().lat, lng: bounds.getNorthWest().lng },

@@ -1,6 +1,6 @@
 import React from "react";
 import { LatLngLiteral } from "leaflet";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, ZoomControl } from "react-leaflet";
 
 import MapView from "src/MapView";
 
@@ -19,11 +19,12 @@ const MapViewContainer = (): JSX.Element => {
       scrollWheelZoom={true}
       zoomControl={false}
     >
+      <ZoomControl position="bottomright" />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <MapView />
+      <MapView maxZoom={maxZoom} minZoom={minZoom} />
     </MapContainer>
   );
 };
